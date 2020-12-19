@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
 
     $statement->execute();
 
-    $user = $statement->fetch(PDO::FETCH_ASSOC);
+ //   $user = $statement->fetch(PDO::FETCH_ASSOC);
 
     redirect('/login.php');
 
