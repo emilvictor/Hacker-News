@@ -9,9 +9,20 @@
     endif; ?>
 
 <article>
+
+    <h2>My profile</h2>
+
+    <div class="card">
+        <img src="" />
+    </div>
+
+    <!--Here user can update/change their email and/or password-->
     <p>Update your profile</p>
 
-    <form action="/app/users/profile/update.php" method="post">
+    <form action="/app/users/profile/update.php" method="post" enctype="multipart/form-data">
+
+    <input type="file" name="pic">
+
         <div class="form-group">
             <label for="email">Email</label>
             <input class="form-control" type="text" name="email" id="email" value="<?php echo $_SESSION['user']['email'] ?>" required>

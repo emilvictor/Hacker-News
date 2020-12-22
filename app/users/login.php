@@ -35,12 +35,10 @@ if (isset($_POST['email'], $_POST['password'])) {
         redirect('/');
 
     }else {
-       echo $user['password'];
+       redirect('/login.php');
         }
 }
 
-// We should put this redirect in the end of this file since we always want to
-// redirect the user back from this file. We don't know
 
 ?>
 
