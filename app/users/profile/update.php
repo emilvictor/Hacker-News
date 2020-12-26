@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 require __DIR__ . '/../../autoload.php';
-print_r($_POST);
+
+
 if (isset($_POST['submit'])) {
 
     if (isset($_FILES['pic'])){
@@ -11,6 +12,8 @@ if (isset($_POST['submit'])) {
         $statement = $database->prepare('UPDATE users set pic = :pic WHERE username =:username');
         $statement->bindParam(':pic', $_FILES['pic']['name']);
         $statement->bindParam(':username', $_SESSION['user']['username'], PDO::PARAM_STR);
+
+        $statement -> execute();
     }
 
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -32,9 +35,17 @@ if (isset($_POST['submit'])) {
 
     }
 
-    $_SESSION['user']['email']=$email;
+    $statement->execute();
+
+
+    $statement = $database->prepare('UPDATE users set bio = :bio where username = :username');
+    $statement->bindParam(':bio',$_POST['bio'] );
+    $statement->bindParam(':username', $_SESSION['user']['username']);
 
     $statement->execute();
+
+    $_SESSION['user']['email']=$email;
+
 
  //   $user = $statement->fetch(PDO::FETCH_ASSOC);
 

@@ -8,20 +8,38 @@
 
     endif; ?>
 
+<?php
+
+    $statement = $database->prepare('SELECT * FROM users WHERE username = :username');
+    $statement->bindParam(':username', $_SESSION['user']['username'], PDO::PARAM_STR);
+    $statement->execute();
+
+        // Fetch the user as an associative array.
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+
+?>
+
+
 <article>
 
-    <h2>My profile</h2>
+    <!--Here user can update/change their email and/or password and infotext-->
 
-    <div class="card">
-        <img src="" />
+    <div class="container">
+        <div class="avatar">
+        <img src="/app/users/profile/pics/<?php echo $user['pic'];?>" height="150" width="150">
+        </div>
+        <h2><?php echo $_SESSION['user']['username'];?></h2>
+        <p><?php echo $user['bio'];?></p>
     </div>
 
-    <!--Here user can update/change their email and/or password-->
-    <p>Update your profile</p>
 
     <form action="/app/users/profile/update.php" method="post" enctype="multipart/form-data">
 
     <input type="file" name="pic">
+
+    <br>
+    <br>
 
         <div class="form-group">
             <label for="email">Email</label>
@@ -34,6 +52,8 @@
             <input class="form-control" type="password" name="password" id="password" >
             <small class="form-text text-muted">Please provide the your password.</small>
         </div><!-- /form-group -->
+
+        <textarea name="bio" id="" cols="30" rows="10"></textarea>
 
         <button type="submit" class="btn btn-primary" name="submit">Update</button>
     </form>
