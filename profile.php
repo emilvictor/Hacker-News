@@ -33,9 +33,7 @@
         <p><?php echo $user['bio'];?></p>
     </div>
 
-
     <form action="/app/users/profile/update.php" method="post" enctype="multipart/form-data">
-
     <input type="file" name="pic">
 
     <br>
@@ -44,13 +42,13 @@
         <div class="form-group">
             <label for="email">Email</label>
             <input class="form-control" type="text" name="email" id="email" value="<?php echo $_SESSION['user']['email'] ?>" required>
-            <small class="form-text text-muted">Please provide the your email address.</small>
+            <small class="form-text text-muted">Please provide your email address.</small>
         </div><!-- /form-group -->
 
         <div class="form-group">
             <label for="password">Password</label>
             <input class="form-control" type="password" name="password" id="password" >
-            <small class="form-text text-muted">Please provide the your password.</small>
+            <small class="form-text text-muted">Please provide your password.</small>
         </div><!-- /form-group -->
 
         <textarea name="bio" id="" cols="30" rows="10"></textarea>
