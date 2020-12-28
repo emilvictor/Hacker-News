@@ -32,6 +32,10 @@
             <a class="nav-link" href="/profile.php">Profile</a>
         </li><!-- /nav-item -->
 
+        <li class="nav-item">
+            <a class="nav-link" href="/posts.php">Posts</a>
+        </li><!-- /nav-item -->
+
       <?php endif; ?>
 
   </ul><!-- /navbar-nav -->

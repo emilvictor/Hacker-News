@@ -27,13 +27,13 @@
 
     <div class="container">
         <div class="avatar">
-        <img src="/app/users/profile/pics/<?php echo $user['pic'];?>" height="150" width="150">
+        <img src="/app/users/pics/<?php echo $user['pic'];?>" height="150" width="150">
         </div>
         <h2><?php echo $_SESSION['user']['username'];?></h2>
         <p><?php echo $user['bio'];?></p>
     </div>
 
-    <form action="/app/users/profile/update.php" method="post" enctype="multipart/form-data">
+    <form action="/app/users/update.php" method="post" enctype="multipart/form-data">
     <input type="file" name="pic">
 
     <br>
@@ -51,7 +51,7 @@
             <small class="form-text text-muted">Please provide your password.</small>
         </div><!-- /form-group -->
 
-        <textarea name="bio" id="" cols="30" rows="10"></textarea>
+        <textarea name="bio" id="" placeholder="Write your bio/info here" cols="30" rows="10"></textarea>
 
         <button type="submit" class="btn btn-primary" name="submit">Update</button>
     </form>
