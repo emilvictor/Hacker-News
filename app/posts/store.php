@@ -19,6 +19,8 @@ if (isset($_POST['submit'])) {
 
     $statement->execute();
 
+    $posts = $statement->fetch(PDO::FETCH_ASSOC);
+
     redirect('/../index.php');
 }
 
