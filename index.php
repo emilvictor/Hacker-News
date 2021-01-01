@@ -10,8 +10,9 @@
         <br>
         <h3>Posts</h3>
         <br>
+        <hr>
 
-     <?php endif ?>
+
 
      <?php
 
@@ -29,13 +30,19 @@
         ?>
 
         <ul>
-            <?php foreach ($posts as $post) : ?>
-                <li><h5><?php echo $post['title']; ?></h5></li>
-                <a href="<?php echo $post['link'];?>"><?php echo $post['link']; ?></a>
-                <p><?php echo $post['description']; ?></p>
-            <?php endforeach; ?>
+            <form action="app/posts/delete.php">
+                <?php foreach ($posts as $post) : ?>
+                    <li><h5><?php echo $post['title']; ?></h5></li>
+                    <a href="<?php echo $post['link'];?>"><?php echo $post['link']; ?></a>
+                    <p><?php echo $post['description']; ?></p>
+                    <button type="submit" name="submit">Delete this post</button>
+                    <hr>
+                <?php endforeach; ?>
+            </form>
+
         </ul>
 
+        <?php endif ?>
 
 
 </article>
