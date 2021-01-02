@@ -6,22 +6,20 @@ require __DIR__ . '/../autoload.php';
 
 // In this file we delete new posts in the database.
 
+//print_r($_POST);
+
 if (isset($_POST['submit'])) {
 
-    $title = $_POST['title'];
-    $link = $_POST['link'];
-    $description = $_POST['description'];
+    $id = $_POST['postid'];
 
-    $statement = $database->prepare('DELETE FROM posts (title, link, description) VALUES (:title, :link, :description)');
-    $statement->bindParam(':title', $title, PDO::PARAM_STR);
-    $statement->bindParam(':link', $link, PDO::PARAM_STR);
-    $statement->bindParam(':description', $description, PDO::PARAM_STR);
+    $statement = $database->prepare('DELETE FROM posts WHERE id = :id');
+    $statement->bindParam(':id', $id, PDO::PARAM_INT);
+
 
     $statement->execute();
 
-    $posts = $statement->fetch(PDO::FETCH_ASSOC);
 
     redirect('/../index.php');
 }
 
-redirect('/');
+

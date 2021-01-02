@@ -30,15 +30,26 @@
         ?>
 
         <ul>
-            <form action="app/posts/delete.php">
+
                 <?php foreach ($posts as $post) : ?>
-                    <li><h5><?php echo $post['title']; ?></h5></li>
-                    <a href="<?php echo $post['link'];?>"><?php echo $post['link']; ?></a>
-                    <p><?php echo $post['description']; ?></p>
-                    <button type="submit" name="submit">Delete this post</button>
-                    <hr>
+                    <form action="app/posts/delete.php" method="post">
+                        <li><h5><?php echo $post['title']; ?></h5></li>
+                        <a href="<?php echo $post['link'];?>"><?php echo $post['link']; ?></a>
+                        <p><?php echo $post['description']; ?></p>
+                        <button type="submit" name="submit">Delete this post</button>
+                      <input type="hidden" name="postid" value="<?php echo $post['id'];?>">
+                    </form>
+                    <br>
+                    <form action="/postUpdate.php" method="post">
+                        <button type="submit" name="submit">Update post</button>
+                        <input type="hidden" name="postid" value="<?php echo $post['id'];?>">
+
+                    </form>
+                        <hr>
+                        <br>
                 <?php endforeach; ?>
-            </form>
+
+
 
         </ul>
 
