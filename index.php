@@ -14,7 +14,7 @@
 
 
 
-     <?php
+    <?php
 
         $pdo = new PDO('sqlite:app/database/database.db');
 
@@ -43,8 +43,16 @@
                     <form action="/postUpdate.php" method="post">
                         <button type="submit" name="submit">Update post</button>
                         <input type="hidden" name="postid" value="<?php echo $post['id'];?>">
-
                     </form>
+                    <br>
+
+                    <form action="/app/posts/likePost.php" method="post">
+                        <button type="submit" name="submit">Like post</button>
+                        <input type="hidden" name="postid" value="<?php echo $post['id'];?>">
+                    </form>
+
+
+
                         <hr>
                         <br>
                 <?php endforeach; ?>
