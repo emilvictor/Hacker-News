@@ -12,13 +12,11 @@
         <br>
         <hr>
 
-
-
     <?php
 
         $pdo = new PDO('sqlite:app/database/database.db');
 
-        $statement = $pdo->query('SELECT * FROM posts');
+        $statement = $pdo->query('SELECT * FROM posts ORDER BY dateposted DESC');
 
         if (!$statement) {
             die(var_dump($pdo->errorInfo()));
@@ -33,6 +31,7 @@
 
                 <?php foreach ($posts as $post) : ?>
                     <form action="app/posts/delete.php" method="post">
+                        <h6><?php echo $post['dateposted']; ?></h6>
                         <li><h5><?php echo $post['title']; ?></h5></li>
                         <a href="<?php echo $post['link'];?>"><?php echo $post['link']; ?></a>
                         <p><?php echo $post['description']; ?></p>
@@ -47,11 +46,26 @@
                     <br>
 
                     <form action="/app/posts/likePost.php" method="post">
-                        <button type="submit" name="submit">Like post</button>
-                        <input type="hidden" name="postid" value="<?php echo $post['id'];?>">
+                       <?php
+
+                        $postid = $post['id'];
+                        $userid = $_SESSION['user']['id'];
+
+                        $statement = $database->prepare('SELECT * FROM posts_likes WHERE userid = :userid AND postid = :postid');
+                        $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
+                        $statement->bindParam(':postid', $postid, PDO::PARAM_INT);
+                        $statement->execute();
+
+                        $likes = $statement->fetch(PDO::FETCH_ASSOC);
+
+                        if (!empty($likes)) :
+                        ?>
+                            <button type="submit" name="submit"><b>Like post</b></button>
+                         <?php else : ?>
+                            <button type="submit" name="submit">Like post</button>
+                        <?php endif ?>
+                         <input type="hidden" name="postid" value="<?php echo $post['id'];?>">
                     </form>
-
-
 
                         <hr>
                         <br>
