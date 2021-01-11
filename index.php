@@ -32,7 +32,7 @@
                 <?php foreach ($posts as $post) : ?>
                     <form action="app/posts/delete.php" method="post">
                         <h6><?php echo $post['dateposted']; ?></h6>
-                        <li><h5><?php echo $post['title']; ?></h5></li>
+                        <li><h5><a href="post.php?id=<?php echo $post['id']; ?>"><?php echo $post['title']; ?></a></h5></li>
                         <a href="<?php echo $post['link'];?>"><?php echo $post['link']; ?></a>
                         <p><?php echo $post['description']; ?></p>
                         <button type="submit" name="submit">Delete this post</button>
