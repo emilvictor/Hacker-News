@@ -16,7 +16,7 @@ $pdo = new PDO('sqlite:app/database/database.db');
 
         $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        $sql_comments = "SELECT * FROM comments WHERE postid = '$id'";
+        $sql_comments = "SELECT * FROM comments WHERE postid = '$id' order by dateposted desc";
         $statement = $pdo->query($sql_comments);
 
         if (!$statement) {
@@ -44,6 +44,22 @@ $pdo = new PDO('sqlite:app/database/database.db');
 
         <button type="submit" name="submit" class="btn btn-primary">Add comment</button>
     </form>
+
+    <?php foreach ($comments as $comment): ?>
+        <p><?php echo $comment['comment_posted'] ?></p>
+
+            <form action="/commentUpdate.php" method="post">
+                <button type="submit" name="submit">Update comment</button>
+                <input type="hidden" name="commentid" value="<?php echo $comment['id'];?>">
+            </form>
+
+            <form action="/app/posts/commentDelete.php" method="post">
+                <button type="submit" name="submit">Delete comment</button>
+                <input type="hidden" name="commentid" value="<?php echo $comment['id'];?>">
+            </form>
+
+
+    <?php endforeach ?>
 
 </article>
 
