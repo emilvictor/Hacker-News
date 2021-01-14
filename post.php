@@ -63,9 +63,7 @@ $pdo = new PDO('sqlite:app/database/database.db');
                         <input type="hidden" name="commentid" value="<?php echo $comment['id'];?>">
                     </form>
                 </div>
-
             </div>
-
 
 
     <?php endforeach ?>
