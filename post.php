@@ -16,9 +16,11 @@ $pdo = new PDO('sqlite:app/database/database.db');
 
         $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+
+
         $sql_comments = "SELECT * FROM comments WHERE postid = '$id' order by dateposted desc";
         $statement = $pdo->query($sql_comments);
-
+        //Here we check if something is wrong with the statement and if its wrong we stop excecuting the script and dump the error
         if (!$statement) {
             die(var_dump($pdo->errorInfo()));
 
@@ -47,16 +49,23 @@ $pdo = new PDO('sqlite:app/database/database.db');
 
     <?php foreach ($comments as $comment): ?>
         <p><?php echo $comment['comment_posted'] ?></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="/commentUpdate.php" method="post">
+                        <button type="submit" name="submit">Update comment</button>
+                        <input type="hidden" name="commentid" value="<?php echo $comment['id'];?>">
+                    </form>
+                    </div>
 
-            <form action="/commentUpdate.php" method="post">
-                <button type="submit" name="submit">Update comment</button>
-                <input type="hidden" name="commentid" value="<?php echo $comment['id'];?>">
-            </form>
+                    <div class="col-md-6">
+                    <form action="/app/posts/commentDelete.php" method="post">
+                        <button type="submit" name="submit">Delete comment</button>
+                        <input type="hidden" name="commentid" value="<?php echo $comment['id'];?>">
+                    </form>
+                </div>
 
-            <form action="/app/posts/commentDelete.php" method="post">
-                <button type="submit" name="submit">Delete comment</button>
-                <input type="hidden" name="commentid" value="<?php echo $comment['id'];?>">
-            </form>
+            </div>
+
 
 
     <?php endforeach ?>
