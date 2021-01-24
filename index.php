@@ -97,6 +97,8 @@
 
                     <?php $statement->bindParam(':postid', $postid, PDO::PARAM_INT); ?>
 
+
+
                     <?php $statement->execute(); ?>
 
                     <?php $comments = $statement->fetchAll(PDO::FETCH_ASSOC); ?>
@@ -104,7 +106,7 @@
 
                     <?php foreach ($comments as $comment) : ?>
 
-                        <input type="hidden" name="id" value="<?php echo $comment['id']; ?>">
+                        <input type="hidden" name="commentid" value="<?php echo $comment['commentid']; ?>">
                         <input type="hidden" name="postid" value="<?php echo $comment['postid']; ?>">
                         <input type="hidden" name="userid" value="<?php echo $comment['userid']; ?>">
 
@@ -131,13 +133,74 @@
                             <?php if (isset($_SESSION['user']['id'])) : ?>
                                 <input type="hidden" name="postid" value="<?php echo $postid; ?>">
                                 <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+                                <?php $commentid = $comment['commentid'];  ?>
+
+                                <input type="hidden" name="commentid" value="<?php echo $commentid; ?>">
+
 
                                 <?php if ($comment['userid'] == $_SESSION['user']['id']) : ?>
                                     <a href="app/comments/delete.php?commentid=<?php echo $comment['commentid']; ?>">Delete</a>
                                     <a href="updateComment.php?commentid=<?php echo $comment['commentid']; ?>">Edit</a>
                                 <?php endif; ?>
                             <?php endif; ?>
-                        <?php endforeach; ?>
+
+
+                            <!-- likes section-->
+                            <div class="likeCounter">
+                                <?php if ($comment['commentLikes'] > 1) : ?>
+                                    <?php echo $comment['commentLikes'] . ' ' . "likes"; ?>
+                                <?php else : ?>
+                                    <?php echo $comment['commentLikes'] . ' ' . "like"; ?>
+                                <?php endif; ?>
+                            </div>
+                            <?php if (isset($_SESSION['user']['id'])) : ?>
+
+                                <?php $user = $_SESSION['user'];
+
+                                $userid = $_SESSION['user']['id'];
+
+                                $statement = $pdo->query('SELECT id FROM commentLikes WHERE userid = :userid AND postid = :postid AND commentid = :commentid;');
+
+                                if (!$statement) {
+                                    die(var_dump($pdo->errorInfo()));
+                                }
+                                $statement->bindParam(':userid', $userid, PDO::PARAM_STR);
+                                $statement->bindParam(':postid', $postid, PDO::PARAM_STR);
+                                $statement->bindParam(':commentid', $commentid, PDO::PARAM_STR);
+
+
+
+                                $statement->execute();
+
+                                $like = $statement->fetch(PDO::FETCH_ASSOC); ?>
+
+
+
+                                <div class="likeButton">
+                                    <?php if ($like) : ?>
+                                        <!-- user already likes post -->
+                                        <form class="unlike" action="unlike.php" method="POST">
+                                            <input type="hidden" name="postid" value="<?php echo $postid; ?>">
+                                            <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+                                            <input type="hidden" name="commentid" value="<?php echo $commentid; ?>">
+
+                                            <input type="hidden" name="id" value="<?php echo $like['id']; ?>">
+                                            <button type="submit" class="unlike" name="unlike"> unlike </button>
+                                        </form>
+                                    <?php else : ?>
+                                        <!-- user has not yet liked post -->
+                                        <form class="like" action="like.php" method="POST">
+                                            <input type="hidden" name="postid" value="<?php echo $postid; ?>">
+                                            <input type="hidden" name="userid" value="<?php echo $userid; ?>">
+                                            <input type="hidden" name="commentid" value="<?php echo $commentid; ?>">
+                                            <button type="submit" class="like" name="like"> like </button>
+                                        </form>
+
+                                    <?php endif; ?>
+                                <?php endif; ?>
+
+                                </div>
+                            <?php endforeach; ?>
                         </div>
 
                 </div>
