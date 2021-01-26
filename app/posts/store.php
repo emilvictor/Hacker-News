@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
     $link = $_POST['link'];
     $description = $_POST['description'];
 
-    $statement = $database->prepare('INSERT INTO posts (title, link, description) VALUES (:title, :link, :description)');
+    $statement = $pdo->prepare('INSERT INTO posts (title, link, description) VALUES (:title, :link, :description)');
     $statement->bindParam(':title', $title, PDO::PARAM_STR);
     $statement->bindParam(':link', $link, PDO::PARAM_STR);
     $statement->bindParam(':description', $description, PDO::PARAM_STR);

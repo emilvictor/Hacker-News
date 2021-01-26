@@ -69,3 +69,7 @@ p {
   color: black;
 }
 
+.ulComments{
+  margin-bottom: 50px;
+  border-bottom: 1px solid black;
+}

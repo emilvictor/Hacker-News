@@ -23,7 +23,7 @@ if (isset($_GET['commentid'])) {
 
     <form class="updateComment" action="app/comments/update.php" method="post">
 
-        <input id="commentid" name="commentid" value="<?php echo $comment['commentid']; ?>">
+        <input id="commentid" type="hidden" name="commentid" value="<?php echo $comment['commentid']; ?>">
 
         <textarea rows="8" cols="50" class="form-control" name="comment" id="comment"><?php echo $comment['comment']; ?></textarea>
 

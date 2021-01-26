@@ -21,7 +21,7 @@ if (isset($_GET['postid'])) {
 <form action="/app/comments/store.php" method="post">
 
 
-    <input class="form-control" name="postid" id="postid" value="<?php echo $postid; ?>">
+    <input class="form-control" type="hidden" name="postid" id="postid" value="<?php echo $postid; ?>">
 
     <textarea name="comment" id="comment" placeholder="" cols="30" rows="10" required></textarea>
 

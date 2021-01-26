@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
 
     $id = $_POST['postid'];
 
-    $statement = $database->prepare('DELETE FROM posts WHERE id = :id');
+    $statement = $pdo->prepare('DELETE FROM posts WHERE id = :id');
     $statement->bindParam(':id', $id, PDO::PARAM_INT);
 
 
@@ -21,5 +21,3 @@ if (isset($_POST['submit'])) {
 
     redirect('/../index.php');
 }
-
-
