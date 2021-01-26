@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $userid = $_SESSION['user']['id'];
     $postid = $_POST['postid'];
 
-    $statement = $database->prepare('INSERT INTO comments (userid, postid, comment_posted) VALUES (:userid, :postid, :comment_posted)');
+    $statement = $pdo->prepare('INSERT INTO comments (userid, postid, comment_posted) VALUES (:userid, :postid, :comment_posted)');
     $statement->bindParam(':userid', $userid, PDO::PARAM_STR);
     $statement->bindParam(':postid', $postid, PDO::PARAM_STR);
     $statement->bindParam(':comment_posted', $comment_posted, PDO::PARAM_STR);
@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
 
     $posts = $statement->fetch(PDO::FETCH_ASSOC);
 
-    redirect('/../post.php?id='.$postid);
+    redirect('/../post.php?id=' . $postid);
 }
 
 redirect('/');

@@ -12,14 +12,14 @@ if (isset($_POST['submit'])) {
     $usersName = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     //Inserting user to the database                                                        //Placeholders
-    $statement = $database->prepare('INSERT INTO users (email, password, username) VALUES (:emil, :password, :username)');
+    $statement = $pdo->prepare('INSERT INTO users (email, password, username) VALUES (:emil, :password, :username)');
     $statement->bindParam(':emil', $email, PDO::PARAM_STR);
     $statement->bindParam(':password', $password, PDO::PARAM_STR);
     $statement->bindParam(':username', $usersName, PDO::PARAM_STR);
 
     $statement->execute();
 
- //   $user = $statement->fetch(PDO::FETCH_ASSOC);
+    //   $user = $statement->fetch(PDO::FETCH_ASSOC);
 
     redirect('/login.php');
 

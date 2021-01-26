@@ -10,7 +10,7 @@ if (isset($_POST['email'], $_POST['password'])) {
     $password = $_POST['password'];
 
     // Prepare, bind email parameter and execute the database query.
-    $statement = $database->prepare('SELECT * FROM users WHERE email = :email');
+    $statement = $pdo->prepare('SELECT * FROM users WHERE email = :email');
     $statement->bindParam(':email', $email, PDO::PARAM_STR);
     $statement->execute();
 
@@ -38,9 +38,3 @@ if (isset($_POST['email'], $_POST['password'])) {
        redirect('/login.php');
         }
 }
-
-
-?>
-
-
-

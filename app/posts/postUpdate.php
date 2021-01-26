@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
     $id = $_POST['postid'];
 
-    $statement = $database->prepare('UPDATE posts SET title = :title, link = :link, description = :description WHERE id = :id');
+    $statement = $pdo->prepare('UPDATE posts SET title = :title, link = :link, description = :description WHERE id = :id');
     $statement->bindParam(':title', $title, PDO::PARAM_STR);
     $statement->bindParam(':link', $link, PDO::PARAM_STR);
     $statement->bindParam(':description', $description, PDO::PARAM_STR);

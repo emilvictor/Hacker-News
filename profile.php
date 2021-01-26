@@ -1,4 +1,3 @@
-
 <?php require __DIR__ . '/app/autoload.php'; ?>
 <?php require __DIR__ . '/views/header.php'; ?>
 
@@ -6,16 +5,16 @@
 
     redirect('/login.php');
 
-    endif; ?>
+endif; ?>
 
 <?php
 
-    $statement = $database->prepare('SELECT * FROM users WHERE username = :username');
-    $statement->bindParam(':username', $_SESSION['user']['username'], PDO::PARAM_STR);
-    $statement->execute();
+$statement = $pdo->prepare('SELECT * FROM users WHERE username = :username');
+$statement->bindParam(':username', $_SESSION['user']['username'], PDO::PARAM_STR);
+$statement->execute();
 
-        // Fetch the user as an associative array.
-    $user = $statement->fetch(PDO::FETCH_ASSOC);
+// Fetch the user as an associative array.
+$user = $statement->fetch(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -27,17 +26,17 @@
 
     <div class="container">
         <div class="avatar">
-        <img src="/app/users/pics/<?php echo $user['pic'];?>" height="150" width="150">
+            <img src="/app/users/pics/<?php echo $user['pic']; ?>" height="150" width="150">
         </div>
-        <h2><?php echo $_SESSION['user']['username'];?></h2>
-        <p><?php echo $user['bio'];?></p>
+        <h2><?php echo $_SESSION['user']['username']; ?></h2>
+        <p><?php echo $user['bio']; ?></p>
     </div>
 
     <form action="/app/users/update.php" method="post" enctype="multipart/form-data">
-    <input type="file" name="pic">
+        <input type="file" name="pic">
 
-    <br>
-    <br>
+        <br>
+        <br>
 
         <div class="form-group">
             <label for="email">Email</label>
@@ -47,7 +46,7 @@
 
         <div class="form-group">
             <label for="password">Password</label>
-            <input class="form-control" type="password" name="password" id="password" >
+            <input class="form-control" type="password" name="password" id="password">
             <small class="form-text text-muted">Please provide your password.</small>
         </div><!-- /form-group -->
 
@@ -55,6 +54,9 @@
 
         <button type="submit" class="btn btn-primary" name="submit">Update</button>
     </form>
+
+
+    <a href="app/users/deleteAccount.php">Delete your account </a>
 </article>
 
 <?php require __DIR__ . '/views/footer.php'; ?>

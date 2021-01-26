@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $postid = $_POST['postid'];
     $userid = $_SESSION['user']['id'];
 
-    $statement = $database->prepare('SELECT * FROM posts_likes WHERE userid = :userid AND postid = :postid');
+    $statement = $pdo->prepare('SELECT * FROM posts_likes WHERE userid = :userid AND postid = :postid');
     $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
     $statement->bindParam(':postid', $postid, PDO::PARAM_INT);
     $statement->execute();
@@ -20,12 +20,10 @@ if (isset($_POST['submit'])) {
 
     if (empty($likes)) {
 
-        $statement = $database->prepare('INSERT INTO posts_likes (userid, postid) VALUES (:userid, :postid)');
+        $statement = $pdo->prepare('INSERT INTO posts_likes (userid, postid) VALUES (:userid, :postid)');
+    } else {
 
-    }else {
-
-        $statement = $database->prepare('DELETE FROM posts_likes WHERE userid = :userid AND postid = :postid');
-
+        $statement = $pdo->prepare('DELETE FROM posts_likes WHERE userid = :userid AND postid = :postid');
     }
 
     $statement->bindParam(':userid', $userid, PDO::PARAM_INT);
@@ -35,4 +33,3 @@ if (isset($_POST['submit'])) {
 
     redirect('/../index.php');
 }
-

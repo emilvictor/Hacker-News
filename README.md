@@ -57,3 +57,8 @@ Open the index.php file in your preferred browser
 - `app/posts/store.php:11-13` - Sanitize your user-data, for example: `$title = filter_var($_POST[‘title’], FILTER_SANITIZE_STRING);`
 
 - The project is well structured and easy to navigate, bra jobbat! 🥳
+
+## New features by:
+**Aseel Mohamad**
+- This is the link to pull request:
+https://github.com/emilvictor/Hacker-News/pull/2
